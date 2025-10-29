@@ -17,7 +17,7 @@
 */
 
 import { useState } from "react";
-
+import Chapter03_2 from './Chapter03_2';
 
 const Chapter03 = () => {
     
@@ -89,6 +89,8 @@ const Chapter03 = () => {
             <br/>
             <h3>{count}</h3>
             <button onClick={onClickButton}>나 클릭하면 숫자 증가함</button>
+            <hr />
+            <Chapter03_2>나 클릭하면 숫자 감소함</Chapter03_2>
         </> 
 
     )

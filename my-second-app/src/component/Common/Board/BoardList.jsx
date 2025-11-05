@@ -15,12 +15,22 @@ const BoardList = ()  => {
             .get(`http://localhost:8080/boards?page=${page}`) // get방식이라 페이징 처리 stream 붙여서 보냄
             .then((response) => {
                 //console.log(response);
-                setBoards([...response.data]);// 담자
+                setBoards([...boards, ...response.data]);// 담자 저장 됐을 때 게시글이 추가 되는건 개발 환경에서 나는 이슈이다.
+
+                if(response.data.length < 3){ // 요소 없을 경우
+                    setHasMore(false);
+                }
+
             })
             .catch((err) => {
                 console.error(err);
             });
     }, [page]); // 의존성을 위함.
+
+    // page 의존성 
+    const increasePage = () => {
+        setPage(page => page + 1);
+    }
 
     return (
 
@@ -37,7 +47,9 @@ const BoardList = ()  => {
                     </Board>
                     {
                         boards.map(board => (
-                            <Board key={board.boardNo}>
+                            <Board 
+                                key={board.boardNo}
+                                onClick={() => navi(`/boards/${board.boardNo}`)}>
                                 <BoardWriter>{board.boardNo}</BoardWriter>
                                 <BoardTitle>{board.boardTitle}</BoardTitle>
                                 <BoardWriter>{board.boardWriter}</BoardWriter>
@@ -46,6 +58,10 @@ const BoardList = ()  => {
                         ))
                     }
                 </BoardOuter>
+                {/* 게시글이 더이상 나오지 않을 경우 더보기 버튼 안나오게 하기 */}
+                {hasMore && (
+                    <Button style={{backgroundColor:"darkblue"}} onClick={increasePage}> + 더보기</Button>
+                )}
             </Container>
         </>
 

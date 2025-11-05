@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import { useState, useEffect, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 // context 생성 hook : Context API로 로그인 상태를 전역 관리
@@ -9,6 +10,7 @@ export const AuthContext = createContext();
 
 
 export const AuthProvider = ({children}) => { // children : 하위 컴포넌트들 의미
+    const navi = useNavigate();
     // auth 상태 관리
     const [auth, setAuth] = useState({
         memberId : null,
@@ -85,7 +87,8 @@ export const AuthProvider = ({children}) => { // children : 하위 컴포넌트�
         localStorage.removeItem("role");
 
         // usNavi로 사용하는게 좋음
-        window.location.href="/"; // 로그아웃 후 홈으로 이동
+        //window.location.href="/"; // 로그아웃 후 홈으로 이동
+        navi("/");
 
     }
 

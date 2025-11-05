@@ -7,7 +7,14 @@ import { AuthContext } from "../../context/AuthContext";
 const Nav = () => {
 
     const navi = useNavigate();
-    const { auth, logout} = useContext(AuthContext);
+    const { auth, logout, loading } = useContext(AuthContext);
+
+    if (loading) return null;
+    
+    const handleLogout = () => {
+        logout();
+        navi("/"); 
+    };
 
     return (
     <StyledNav>
@@ -26,7 +33,8 @@ const Nav = () => {
         <>
             {/* 로그인 후 */}
             <NavLink onClick={() => navi("/info")}>내정보</NavLink>
-            <NavLink onClick={logout}>로그아웃</NavLink> 
+            {/* <NavLink onClick={logout}>로그아웃</NavLink>  */}
+            <NavLink onClick={handleLogout}>로그아웃</NavLink> 
             {/* 로그아웃 할 때 refreshToken을 delete 해줘야된다._나중에 할 예정 */}
             </>
         )

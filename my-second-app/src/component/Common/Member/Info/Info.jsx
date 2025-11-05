@@ -9,7 +9,7 @@ import DeleteMember from "./DeleteMember";
 
 {/* 마이페이지 :  비밀번호 변경, 회원 탈퇴 */}
 const Info = () => {
-    const { auth } = useContext(AuthContext);
+    const { auth, logout } = useContext(AuthContext);
     const navi = useNavigate();
 
     const [active, setActive] = useState(true);
@@ -20,12 +20,13 @@ const Info = () => {
 
     useEffect(() => { // 컴포넌트가 렌더링 될 때마다 실행
         if (auth == null) return;
-
+        
         if(!auth.isAuthenticated){
             alert("로그인이 필요한 페이지입니다.");
+            logout();
             navi("/login");
         }
-    }, []);
+    }, [auth, navi]);
 
     return (
         <>

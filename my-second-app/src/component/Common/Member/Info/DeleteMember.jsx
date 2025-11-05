@@ -13,21 +13,28 @@ const DeleteMember = () => {
     const handleDelete= () => {
 
         // DELETE 요청에서 body는 반드시 data 속성 안에 넣어야 함
-        axios.delete("http://localhost:8080/members", {
-            data: { password }, 
-            headers: {
-                Authorization: `Bearer ${auth.accessToken}`,
-                // "Content-Type": "application/json",
-            },
-        })
-        .then((result) => {
-
-            if (result.status === 200 || result.status === 204) {
-                console.log(result)
-                alert("회원 탈퇴에 성공하셨습니다.");
-                logout(); // 로그아웃 처리
-                navi("/"); // 홈으로 이동
+        axios
+        .delete(
+            "http://localhost:8080/members", 
+            {
+                headers: {
+                    Authorization: `Bearer ${auth.accessToken}`,
+                },
+                data: { 
+                    password 
+                }, 
             }
+        )
+        .then((result) => {
+            // if (result.status === 200 || result.status === 204) {
+            //     console.log(result)
+            //     alert("회원 탈퇴에 성공하셨습니다.");
+            // }
+            console.log(result)
+            alert("회원 탈퇴에 성공하셨습니다.");
+
+            logout(); // 로그아웃 처리
+            navi("/"); // 홈으로 이동
 
         }).catch((err) => {
             console.log(err);

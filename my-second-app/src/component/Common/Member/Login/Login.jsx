@@ -2,6 +2,8 @@ import{ Button, Container, Form, Input, Label, Title } from "../../../styles/sty
 import { useContext, useState }  from "react";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
 
@@ -10,7 +12,7 @@ const Login = () => {
     const [msg, setMsg] = useState("");
     //const [loading, isLoading] = useState(false);
     const { login } = useContext(AuthContext);  // AuthContext에서 login 함수 가져오기
-
+    const navi = useNavigate();
 
     // const fn1 = (e) => {
     //     setMemberId(e.target.value);
@@ -53,7 +55,8 @@ const Login = () => {
             // ==로컬 스토리지에 토큰 저장 : application > local storage 확인 가능==
             alert("로그인에 성공했습니다.");
             // useNavigate("/")  // 로그인 후 홈으로 이동 사용하는게 좋음
-            window.location.href = "/"; // 새로고침 효과도 있음
+            //window.location.href = "/"; // 새로고침 효과도 있음
+            navi("/")
             login(memberId, memberName, accessToken, refreshToken, role)
             
             /*

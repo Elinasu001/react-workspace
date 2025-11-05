@@ -23,7 +23,7 @@ const Join = () => {
 
 
         // 서버로 데이터 전송
-        axios.post("http://localhost:8080/auth/login", {
+        axios.post("http://localhost:8080/members", {
             memberId,
             memberPwd,
             memberName

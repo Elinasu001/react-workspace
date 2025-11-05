@@ -39,7 +39,7 @@ const Nav = () => {
             </>
         )
     }
-        <NavLink>게시판</NavLink>
+        <NavLink onClick={() => navi("/boards")}>게시판</NavLink>
     </StyledNav>
     );
 };

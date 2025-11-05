@@ -20,7 +20,7 @@ export const AuthProvider = ({children}) => { // children : 하위 컴포넌트�
         role : null,
         isAuthenticated : false,
     });
-
+    
 
     // 자동 로그인 구현을 위한 useEffect
     useEffect(() => {

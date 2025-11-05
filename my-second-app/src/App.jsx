@@ -6,6 +6,8 @@ import Home from "./component/Common/Home/Home";
 import Join from "./component/Common/Member/Join/Join";
 import Login from "./component/Common/Member/Login/Login";
 import Info from "./component/Common/Member/Info/Info";
+import BoardList from "./component/Common/Board/BoardList";
+import BoardForm from "./component/Common/Board/BoardForm";
 
 function App() {
 	return (
@@ -19,6 +21,8 @@ function App() {
 					<Route path="/join" element={<Join />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/info" element={<Info />} />
+					<Route path="/boards" element={<BoardList />} />
+					<Route path="/form" element={<BoardForm />} />
 				</Routes>
 			<Footer />
 		</AuthProvider>

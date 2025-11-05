@@ -65,9 +65,11 @@ const BoardForm = ()=> {
             },
         })
         .then((result) => {
-            console.log(result);
-            alert("게시글이 성공적으로 등록되었습니다!");
-            navi("/"); // 작성 완료 후 홈으로 이동
+            //console.log(result);
+            if(result.status === 201){
+                alert("게시글 작성이 완료되었습니다.");
+                navi("/boards"); // 작성 완료 후 게시글 목록으로 이동
+            }
         })
         .catch((error) => {
             console.error(error);

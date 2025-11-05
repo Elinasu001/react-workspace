@@ -19,13 +19,13 @@ const Nav = () => {
             !auth.isAuthenticated ?
         (
             <>
-            <NavLink onClick={() => navi("/Join")}>회원가입</NavLink>
-            <NavLink onClick={() => navi("/Login")}>로그인</NavLink>
+            <NavLink onClick={() => navi("/join")}>회원가입</NavLink>
+            <NavLink onClick={() => navi("/login")}>로그인</NavLink>
             </>
         ) : (
         <>
             {/* 로그인 후 */}
-            <NavLink>내정보</NavLink>
+            <NavLink onClick={() => navi("/info")}>내정보</NavLink>
             <NavLink onClick={logout}>로그아웃</NavLink> 
             {/* 로그아웃 할 때 refreshToken을 delete 해줘야된다._나중에 할 예정 */}
             </>

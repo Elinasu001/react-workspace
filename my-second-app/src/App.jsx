@@ -5,6 +5,7 @@ import Header from "./component/Common/Header/Header";
 import Home from "./component/Common/Home/Home";
 import Join from "./component/Common/Member/Join/Join";
 import Login from "./component/Common/Member/Login/Login";
+import Info from "./component/Common/Member/Info/Info";
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/join" element={<Join />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/info" element={<Info />} />
 				</Routes>
 			<Footer />
 		</AuthProvider>

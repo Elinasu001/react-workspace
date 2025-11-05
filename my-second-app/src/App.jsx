@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./component/context/AuthContext";
 import Footer from "./component/Common/Footer/Footer";
 import Header from "./component/Common/Header/Header";
 import Home from "./component/Common/Home/Home";
@@ -8,13 +9,17 @@ import Login from "./component/Common/Member/Login/Login";
 function App() {
 	return (
 		<>
-		<Header />
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/join" element={<Join />} />
-			<Route path="/login" element={<Login />} />
-		</Routes>
-		<Footer />
+		{/* AuthProvider로 감싸서 하위 컴포넌트들이 인증 상태에 접근 가능하도록 함 */}
+		{/* props로 받지 않고도 하위 컴포넌트들이 AuthContext의 값에 접근 가능 */}
+		<AuthProvider>
+			<Header />
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/join" element={<Join />} />
+					<Route path="/login" element={<Login />} />
+				</Routes>
+			<Footer />
+		</AuthProvider>
 		</>
 	);
 };

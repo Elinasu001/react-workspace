@@ -1,15 +1,36 @@
 import { StyledNav, NavLink } from "./Nav.styles";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 
 const Nav = () => {
+
     const navi = useNavigate();
+    const { auth, logout} = useContext(AuthContext);
+
     return (
     <StyledNav>
         <NavLink onClick={() => navi("/")}>HOME</NavLink>
-        <NavLink onClick={() => navi("/Join")}>회원가입</NavLink>
-        <NavLink onClick={() => navi("/Login")}>로그인</NavLink>
-        <NavLink>내정보</NavLink>
-        <NavLink>로그아웃</NavLink>
+        {/* AuthContext을 사용하여 로그인 상태에 따라 링크 표시 */}
+
+        {
+            /* 로그인 전 : auth > isAuthenticated : true 면 */
+            !auth.isAuthenticated ?
+        (
+            <>
+            <NavLink onClick={() => navi("/Join")}>회원가입</NavLink>
+            <NavLink onClick={() => navi("/Login")}>로그인</NavLink>
+            </>
+        ) : (
+        <>
+            {/* 로그인 후 */}
+            <NavLink>내정보</NavLink>
+            <NavLink onClick={logout}>로그아웃</NavLink> 
+            {/* 로그아웃 할 때 refreshToken을 delete 해줘야된다._나중에 할 예정 */}
+            </>
+        )
+    }
         <NavLink>게시판</NavLink>
     </StyledNav>
     );

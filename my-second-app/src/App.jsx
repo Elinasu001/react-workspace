@@ -3,6 +3,7 @@ import Footer from "./component/Common/Footer/Footer";
 import Header from "./component/Common/Header/Header";
 import Home from "./component/Common/Home/Home";
 import Join from "./component/Common/Member/Join/Join";
+import Login from "./component/Common/Member/Login/Login";
 
 function App() {
 	return (
@@ -11,6 +12,7 @@ function App() {
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/join" element={<Join />} />
+			<Route path="/login" element={<Login />} />
 		</Routes>
 		<Footer />
 		</>

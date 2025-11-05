@@ -23,11 +23,11 @@ const Join = () => {
 
 
         // 서버로 데이터 전송
-        axios.post("http://localhost:8080/members", {
+        axios.post("http://localhost:8080/auth/login", {
             memberId,
             memberPwd,
             memberName
-        }).then((result) => {
+        }).then((result) => {  
             // console.log(result);
             if(result.status === 201){
                 alert("회원가입이 완료되었습니다.");
@@ -39,9 +39,11 @@ const Join = () => {
             console.log(error.response.data["error-message"]); // 이미 존재하는 아이디입니다.
             setErrMsg(error.response.data["error-message"]);
             isLoading(false);
+        }).catch(e => {
+            console.log(e);
         });
-
     }
+
 
     return <>
         <Container>

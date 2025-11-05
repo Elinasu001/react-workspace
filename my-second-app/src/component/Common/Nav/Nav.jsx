@@ -6,8 +6,8 @@ const Nav = () => {
     return (
     <StyledNav>
         <NavLink onClick={() => navi("/")}>HOME</NavLink>
-        <NavLink onClick={() => navi("/join")}>회원가입</NavLink>
-        <NavLink>로그인</NavLink>
+        <NavLink onClick={() => navi("/Join")}>회원가입</NavLink>
+        <NavLink onClick={() => navi("/Login")}>로그인</NavLink>
         <NavLink>내정보</NavLink>
         <NavLink>로그아웃</NavLink>
         <NavLink>게시판</NavLink>

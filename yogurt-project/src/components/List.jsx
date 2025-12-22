@@ -54,7 +54,7 @@ const List = () => {
                 yogurts.length === 0 ? (
                     <div>아직 요거트가 존재하지 않습니다.</div>
                 ) : (
-                    <div>
+                    <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
                         {yogurts.map((y) => (
                             <div key={y.yogurtId} style={{backgroundColor: '#f0f0f0', color: '#333', marginBottom: '10px', padding: '10px', borderRadius: '5px'}}>
                                 <h3>{y.yogurtName || <mark>요거트 없음</mark>}</h3>

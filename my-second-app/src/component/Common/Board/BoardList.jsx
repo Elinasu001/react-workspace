@@ -15,7 +15,7 @@ const BoardList = ()  => {
             .get(`http://localhost:8080/boards?page=${page}`) // get방식이라 페이징 처리 stream 붙여서 보냄
             .then((response) => {
                 //console.log(response);
-                setBoards([...boards, ...response.data]);// 담자 저장 됐을 때 게시글이 추가 되는건 개발 환경에서 나는 이슈이다.
+                setBoards([...boards, ...response.data]);// 저장 됐을 때 게시글이 추가 되는건 개발 환경에서 나는 이슈이다.
 
                 if(response.data.length < 3){ // 요소 없을 경우
                     setHasMore(false);

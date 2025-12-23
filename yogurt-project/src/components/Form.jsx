@@ -1,13 +1,16 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
     const [yogurtName, setYogurtName] = useState('');   
     const [riceName, setRiceName] = useState('');
     const apiUrl = window.ENV?.API_URL || "http://localhost:8083";
     const [loading, isLoading]  = useState(false);
+    const navi = useNavigate();
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(null);
 
     const handleYogurtName = (e) => {
         setYogurtName(e.target.value);  
@@ -15,6 +18,24 @@ const Form = () => {
 
     const handleRiceName = (e) => {
         setRiceName(e.target.value);    
+    };
+
+    const handleFile = (e) => {
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+
+        console.log(selectedFile);
+
+
+        if(selectedFile && selectedFile.type.startsWith('image/')){
+            const reader = new FileReader();
+            reader.onload = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(selectedFile);
+        } else{
+            setPreview(null);
+        }
     };
 
     const handleSubmit = (e) => {
@@ -65,6 +86,18 @@ const Form = () => {
                     onChange={handleRiceName}
                     />
                 </div>
+
+                <div>
+                    <label htmlFor="file">파일 업로드</label>
+                    <input type="file" id="file" onChange={handleFile}/>
+                    
+                </div>
+                {preview && (
+                    <>
+                        <h4>이미지 미리보기</h4>
+                        <img src={preview} alt="미리보기 이미지" style={{maxWidth: '200px', maxHeight:"160px"}}/>
+                    </>
+                )}
                 <div>
                     <button type='button'>요거트 어케먹어</button>
                     <button type='submit'>입력 추가하기</button>

@@ -20,13 +20,14 @@ const Form = () => {
         setRiceName(e.target.value);    
     };
 
+    // 파일 선택 핸들러
     const handleFile = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
 
         console.log(selectedFile);
 
-
+        // 이미지 미리보기 생성
         if(selectedFile && selectedFile.type.startsWith('image/')){
             const reader = new FileReader();
             reader.onload = () => {
@@ -42,9 +43,22 @@ const Form = () => {
         e.preventDefault();  
         isLoading(true);
 
-        axios.post(`${apiUrl}/api/yogurts`, {
-            yogurtName: yogurtName,
-            riceName: riceName,
+        const formData = new FormData();
+        formData.append('yogurtName', yogurtName);
+        formData.append('riceName', riceName);
+        
+        // 파일이 선택된 경우에만 FormData에 추가
+        if(file) {
+            formData.append('file', file);
+        }
+
+        // 폼데이터 확인
+        axios.post(`${apiUrl}/api/yogurts`, formData, {
+            // yogurtName: yogurtName,
+            // riceName: riceName,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
         })
         .then((res) => {
             console.log(res);
@@ -53,6 +67,7 @@ const Form = () => {
             setYogurtName('');
             setRiceName('');
             isLoading(false);
+            navi('/list');
         })
         .catch((err) => {
             console.error(err);
@@ -99,7 +114,7 @@ const Form = () => {
                     </>
                 )}
                 <div>
-                    <button type='button'>요거트 어케먹어</button>
+                    <button type='button' onClick={() => navi(-1)}>요거트 어케먹어</button>
                     <button type='submit'>입력 추가하기</button>
                 </div>
             </form>

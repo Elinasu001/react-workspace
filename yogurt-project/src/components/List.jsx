@@ -7,6 +7,7 @@ const List = () => {
     const [err, setErr] = useState("");
     // ? 이란, 읽을 떄는 API_URL를 읽어오고 없으면 NULL 체크 하여 UNDIFINED 방지
     const apiUrl = window.ENV?.API_URL || "http://localhost:8083"; 
+    const [flag, isFlag] = useState(false);
 
     useEffect(() => {
         console.log("API URL:", apiUrl);
@@ -32,7 +33,7 @@ const List = () => {
         };
         
         reqYogurts();
-    }, []);
+    }, [flag]); // 의존성 배열
     /*
         setYogurts 이후에 최신값을 보고 싶다면, 
         useEffect로 yogurts가 바뀔 때마다 로그를 찍는 별도의 useEffect를 추가
@@ -42,6 +43,22 @@ const List = () => {
             console.log(yogurts);
         }
     }, [yogurts]);
+
+    const handleDelete = (id) => {
+
+        if(!confirm("정말 삭제하시겠습니까?")){
+            return;
+        }
+
+        axios.delete(`${apiUrl}/api/yogurts/${id}`)
+        .then(() => {
+            alert("삭제되었습니다.");
+            isFlag((flag) => !flag);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+    }
 
     if(err){
         return <h1 style={{color:"red"}}>에러 발생: {err}</h1>;
@@ -56,9 +73,13 @@ const List = () => {
                 ) : (
                     <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
                         {yogurts.map((y) => (
-                            <div key={y.yogurtId} style={{backgroundColor: '#f0f0f0', color: '#333', marginBottom: '10px', padding: '10px', borderRadius: '5px'}}>
+                            <div key={y.yogurtId} style={{backgroundColor: '#f0f0f0', color: '#333'}}>
                                 <h3>{y.yogurtName || <mark>요거트 없음</mark>}</h3>
                                 <p>{y.riceName || <mark> 밥 없음</mark>}</p>
+                                <img src={y.filePath}/>
+                                <div style={{marginBottom: '10px', padding: '10px'}}>
+                                    <button onClick={() => handleDelete(y.yogurtId)}>삭제하기</button>
+                                </div>
                             </div>
                         ))}
                     </div>
